@@ -97,13 +97,13 @@ def menuCliente():
        esta=buscarDNI(dni) #esta trae la linea entera a borrar
        #print(esta)
                                              
-    elegir=input("Queres borrar?\nS - Sí\nN - No\nC - Cancelar\n").upper() 
+    elegir=input("Quiere borrar a este cliente?\nS - Sí\nN - No\nC - Cancelar\n").upper() 
     while elegir!="S" and elegir!="N" and elegir!="C":
         print("\n\n------------------------\nPor favor, ingrese una de las opciones especificadas\n------------------------\n\n")
         elegir= input ("Desea: \n S - Sí\nN - No\nC - Cancelar\n").upper()
 
 
-
+    #si elige S elimina
     if elegir=="S":
     #hace una lista de todas las lineas del archivo, y reescribe el archivo salteando la linea ignorada
         with open("clientes.txt", "r+") as f:
@@ -113,6 +113,13 @@ def menuCliente():
                 if i != esta:
                     f.write(i)
             f.truncate()
+
+    if elegir=="N":
+        print("\nNo se ha modificado al cliente con DNI: " +dni+"\n")
+        menuCliente()
+
+    if elegir=="C":
+        menuCliente()
 
 
 
