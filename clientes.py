@@ -2,7 +2,6 @@
 #faltaria una opcion para salir y volver al menú anterior
 
 #validacion de seleccion de menu cliente
-from types import DynamicClassAttribute
 
 
 def menuCliente():
