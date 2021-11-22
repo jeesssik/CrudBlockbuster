@@ -6,11 +6,11 @@
 
 def menuCliente():
     
-    choice= input ("Desea: \n A - Dar de alta un cliente \n B - Modificar teléfono o dirección del cliente \n C - Eliminar cliente\n X - Volver al menú anterior\n Selección: ").upper()
+    choice= input ("Desea: \n A - Dar de alta un cliente \n B - Modificar teléfono o dirección del cliente \n C - Eliminar cliente\n D - Consultar estado de cliente \n X - Volver al menú anterior\n Selección: ").upper()
 
-    while choice!="A" and choice!="B" and choice!="C" and choice!="X":
+    while choice!="A" and choice!="B" and choice!="C" and choice!="D" and choice!="X":
         print("\n\n------------------------\nPor favor, ingrese una de las opciones especificadas\n------------------------\n\n")
-        choice= input ("Desea: \n A - Dar de alta un cliente \n B - Modificar teléfono o dirección del cliente \n C - Eliminar cliente\n X - Volver al menú anterior\n Selección: ").upper()
+        choice= input ("Desea: \n A - Dar de alta un cliente \n B - Modificar teléfono o dirección del cliente \n C - Eliminar cliente \n D - Consultar estado de cliente \n X - Volver al menú anterior\n Selección: ").upper()
 
 ############# funcion para validacion de ingreso de DNI
     def ingresoDNI():   
@@ -32,7 +32,7 @@ def menuCliente():
             print("\n")
             return entrada
 #############
-############ funcion para revisar si en di estab en la bd
+############ funcion para revisar si en di estab en la bd, devuelve la linea de info si está
     def buscarDNI(entrada):
         # opening a text file
         file1 = open("clientes.txt", "r")
@@ -96,31 +96,40 @@ def menuCliente():
        esta=buscarDNI(dni) #esta trae la linea entera a borrar
        #print(esta)
                                              
-    elegir=input("Quiere borrar a este cliente?\nS - Sí\nN - No\nC - Cancelar\n").upper() 
-    while elegir!="S" and elegir!="N" and elegir!="C":
-        print("\n\n------------------------\nPor favor, ingrese una de las opciones especificadas\n------------------------\n\n")
-        elegir= input ("Desea: \n S - Sí\nN - No\nC - Cancelar\n").upper()
+       elegir=input("Quiere borrar a este cliente?\nS - Sí\nN - No\nC - Cancelar\n").upper() 
+       while elegir!="S" and elegir!="N" and elegir!="C":
+            print("\n\n------------------------\nPor favor, ingrese una de las opciones especificadas\n------------------------\n\n")
+            elegir= input ("Desea: \n S - Sí\nN - No\nC - Cancelar\n").upper()
 
 
-    #si elige S elimina
-    if elegir=="S":
-    #hace una lista de todas las lineas del archivo, y reescribe el archivo salteando la linea ignorada
-        with open("clientes.txt", "r+") as f:
-            d = f.readlines()
-            f.seek(0)
-            for i in d:
-                if i != esta:
-                    f.write(i)
-            f.truncate()
+        #si elige S elimina
+       if elegir=="S":
+        #hace una lista de todas las lineas del archivo, y reescribe el archivo salteando la linea ignorada
+            with open("clientes.txt", "r+") as f:
+                d = f.readlines()
+                f.seek(0)
+                for i in d:
+                    if i != esta:
+                        f.write(i)
+                f.truncate()
 
-    if elegir=="N":
-        print("\nNo se ha modificado al cliente con DNI: " +dni+"\n")
+       if elegir=="N":
+            print("\nNo se ha modificado al cliente con DNI: " +dni+"\n")
+            menuCliente()
+
+       if elegir=="C":
         menuCliente()
 
-    if elegir=="C":
-        menuCliente()
 
+    if choice=="D":
+        dni= ingresoDNI()
+        esta=buscarDNI(dni) #esta trae la linea entera a borrar
+        #print(esta)
 
-
+        if "Estado: 0" in esta:
+           print("El cliente "+ dni+" no tiene deudas")
+        else:
+            print("El cliente "+ dni+" debe la película con el código: "+ esta[-5:])  ##OJO ACA, ASUMO QUE EL CODIGO TIENE 4 CARACTERES
     
+
 menuCliente()

@@ -1,4 +1,4 @@
-DNI: 32456565, Nombre Completo: Jesica Rodriguez , Telefono: 45676543, Direccion: Pampa 3221, Estado: 0, codPelicula: 0
-DNI: 22222222, Nombre Completo: Belen Perez , Telefono: 45654345 , Direccion: Pedro Moran 2231 , Estado: 1, codPelicula:0
-DNI: 11111111, Nombre Completo: Belen Perez , Telefono: 45654345 , Direccion: Pedro Moran 2231 , Estado: 1, codPelicula:0
+DNI: 32456565, Nombre Completo: Jesica Rodriguez , Telefono: 45676543, Direccion: Pampa 3221, Estado: 0, codPelicula:0
+DNI: 22222222, Nombre Completo: Belen Perez , Telefono: 45654345 , Direccion: Pedro Moran 2231 , Estado: 1, codPelicula:1234
+DNI: 11111111, Nombre Completo: Belen Perez , Telefono: 45654345 , Direccion: Pedro Moran 2231 , Estado: 1, codPelicula:5475
 DNI: 99999999, Nombre Completo: Belen Perez , Telefono: 45654345 , Direccion: Pedro Moran 2231 , Estado: 1, codPelicula:0
