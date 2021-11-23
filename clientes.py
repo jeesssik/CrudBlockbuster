@@ -163,7 +163,7 @@ def menuCliente():
         menuCliente()
 
 
-    if choice=="D":
+    if choice=="D":  # estado del cliente
         dni= ingresoDNI()
         esta=buscarDNI(dni) #esta trae la linea entera a borrar
         #print(esta)
@@ -171,7 +171,7 @@ def menuCliente():
         if "Estado: 0" in esta:
            print("El cliente "+ dni+" no tiene deudas")
         else:
-            print("El cliente "+ dni+" debe la película con el código: "+ esta[-5:]+"\n\n")  ##OJO ACA, ASUMO QUE EL CODIGO TIENE 4 CARACTERES
+            print("El cliente "+ dni+" debe la película con el : "+ esta[esta.find("codigo"):]+"\n\n")  ##OJO ACA, ASUMO QUE EL CODIGO TIENE 4 CARACTERES
     
     menuCliente()
 menuCliente()
