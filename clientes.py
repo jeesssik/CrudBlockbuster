@@ -89,6 +89,48 @@ def menuCliente():
                     f.write("DNI: "+entrada+ ", Nombre Completo:"+nom +", Telefono:"+ tel + ", Direccion: "+dir + ", Estado:  0, codPelicula:0\n")
 
     
+    if choice=="B":
+        dni= ingresoDNI()
+        esta=buscarDNI(dni) #esta trae la linea entera
+
+        elect= input("\nDesea modificar el teléfono o la dirección del cliente?\n\nA- Teléfono\nDirección\nSelección:").upper()
+        
+        while elect!="A" and elect!="B":
+            print("\n\n------------------------\nPor favor, ingrese una de las opciones especificadas\n------------------------\n\n")
+            elect= input("\nDesea modificar el teléfono o la dirección del cliente?\nA- Teléfono\nDirección\nSelección:").upper()
+
+        if elect=="A": #telefono
+            
+            pte1=esta[:esta.find("Telefono")-2] # almacena lo anterior al telefono
+            #print(pte1)
+            
+            #### aca insertar nuevo telefono
+            tel=input("Ingrese el telefono de contacto: ")
+            tel= " Telefono: "+tel+", "
+
+            pte2= esta[esta.find("Direccion"):] #lo que hay despues del telefono
+            #print(pte2)
+
+            modificado=pte1+tel+pte2
+
+            #hace una lista de todas las lineas del archivo, y reescribe el archivo salteando la linea ignorada
+            with open("clientes.txt", "r+") as f:
+                d = f.readlines()
+                f.seek(0)
+                for i in d:
+                     if i != esta: #ignora la linea modificada
+                        f.write(i)
+                     if i == esta: #donde está la linea modif, agrega la linea nueva
+                        f.write(modificado)
+                     
+                f.truncate()
+
+            print("\n\*** ¡Telefono modificado con éxito! *** \n")
+
+            #########################
+            #######################
+ 
+
     ##eliminar cliente
     if choice=="C":
        dni= ingresoDNI()
@@ -129,7 +171,7 @@ def menuCliente():
         if "Estado: 0" in esta:
            print("El cliente "+ dni+" no tiene deudas")
         else:
-            print("El cliente "+ dni+" debe la película con el código: "+ esta[-5:])  ##OJO ACA, ASUMO QUE EL CODIGO TIENE 4 CARACTERES
+            print("El cliente "+ dni+" debe la película con el código: "+ esta[-5:]+"\n\n")  ##OJO ACA, ASUMO QUE EL CODIGO TIENE 4 CARACTERES
     
-
+    menuCliente()
 menuCliente()
