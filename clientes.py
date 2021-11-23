@@ -5,7 +5,7 @@
 
 
 def menuCliente():
-    
+    print("\n\n-----------------------------------\n")
     choice= input ("Desea: \n A - Dar de alta un cliente \n B - Modificar teléfono o dirección del cliente \n C - Eliminar cliente\n D - Consultar estado de cliente \n X - Volver al menú anterior\n Selección: ").upper()
 
     while choice!="A" and choice!="B" and choice!="C" and choice!="D" and choice!="X":
@@ -93,11 +93,11 @@ def menuCliente():
         dni= ingresoDNI()
         esta=buscarDNI(dni) #esta trae la linea entera
 
-        elect= input("\nDesea modificar el teléfono o la dirección del cliente?\n\nA- Teléfono\nDirección\nSelección:").upper()
+        elect= input("\nDesea modificar el teléfono o la dirección del cliente?\n\nA- Teléfono\nB- Dirección\nSelección:").upper()
         
         while elect!="A" and elect!="B":
             print("\n\n------------------------\nPor favor, ingrese una de las opciones especificadas\n------------------------\n\n")
-            elect= input("\nDesea modificar el teléfono o la dirección del cliente?\nA- Teléfono\nDirección\nSelección:").upper()
+            elect= input("\nDesea modificar el teléfono o la dirección del cliente?\nA- Teléfono\nB- Dirección\nSelección:").upper()
 
         if elect=="A": #telefono
             
@@ -127,8 +127,34 @@ def menuCliente():
 
             print("\n\*** ¡Telefono modificado con éxito! *** \n")
 
-            #########################
-            #######################
+            ###modificacion de direccion####
+
+        if elect=="B": #modificacion de direccion
+        
+            pte1=esta[:esta.find("Direccion")-2] # almacena lo anterior a la direccion
+        
+            #### aca insertar nuevo telefono
+            dire=input("Ingrese la nueva direccion: ")
+            dire= ", Direccion: "+dire+", "
+
+            pte2= esta[esta.find("Estado"):] #lo que hay despues de direccion
+            
+
+            modificado=pte1+dire+pte2
+
+            #hace una lista de todas las lineas del archivo, y reescribe el archivo salteando la linea ignorada
+            with open("clientes.txt", "r+") as f:
+                d = f.readlines()
+                f.seek(0)
+                for i in d:
+                    if i != esta: #ignora la linea modificada
+                        f.write(i)
+                    if i == esta: #donde está la linea modif, agrega la linea nueva
+                        f.write(modificado)
+                    
+                f.truncate()
+
+            print("\n\*** ¡Direccion modificada con éxito! *** \n")
  
 
     ##eliminar cliente
