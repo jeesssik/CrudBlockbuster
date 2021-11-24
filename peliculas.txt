@@ -1,0 +1,10 @@
+001234,el señor de los anillos, fantasia,0
+001237,Todo Poderoso, comedia romántica,1
+838493,el gato con botas,infantil,0
+342342,Gran Torino,drama,0
+23423,mi pobre angelito,infantil,0
+009988,Garfield y sus amigos y amigas,infantil,0
+239423042,heidi,infantil,0
+23423423423,virgen a los 40,pelotudas,0
+23492342342,insurgente,aventura,0
+234234,Lalaland,romantica,0
