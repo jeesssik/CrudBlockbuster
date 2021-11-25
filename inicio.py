@@ -394,48 +394,74 @@ def buscarpeli():
 
 ##### punto 1B
 def alquilarpeli():
+    
+    #ingreso y validación de DNI
+    def ingresoDNI():   
+        valido=True
+        while valido:
+            entrada=input("\n++++++++++++++++++++++++++\nIngrese el DNI del cliente: ")
+            print("++++++++++++++++++++++++++\n")
+            try:
+                dni= int(entrada)
+                if dni<=0:
+                    print("El numero no puede ser 0 ni negativo, volvé a intentar")
+                elif len(entrada)<8 or len(entrada)>8:
+                    print("El dni consta de 8 numeros")
+                else:
+                    valido=False
+            except ValueError:
+                print("El dni ingresado es incorrecto, por favor vuelva a ingresarlo")
+        
+        print("\n")
+        return entrada  
+    #validación de existencia de cliente
+    def buscarDNI(entrada):
+    
+            file1 = open("clientes.txt", "r")
+            flag = 0
+            index = 0
+            for line in file1:  
+                index += 1 
+                
+                if entrada in line:
+                    flag = 1
+                    texto=line
+                    break  
+
+            if flag == 0: 
+                print("\nEl dni ingresado no se encuentra registrado como cliente, por favor vuelva a ingresarlo")
+                return buscarDNI(ingresoDNI())
+            else: 
+                return texto
+            # closing text file    
+            file1.close()  
+    
+    if len((buscarDNI(ingresoDNI())))>0:
+        dni = ingresoDNI()
+
+    while True:
+        try:
+            codigoPeli = input("Ingrese el codigo de la pelicula que desea alquilar: ")
+            print(codigoPeli)
+        except ValueError:
+            print("El código de barras debe ser una combinación de números")
+        else:
+            if codigoPeli.isnumeric():
+                break
+            else:
+                print ("El código de barras debe ser una combinación de números")
+    
     with open("peliculas.txt", "r+") as archi:
         with open("auxiliar.txt", "w") as qArchi:
-            while True:
-                try:
-                    codigoPeli = input("Ingrese el codigo de la pelicula que desea alquilar: ")
-                except ValueError:
-                    print("El código de barras debe ser una combinación de números")
+            
+            peliculas = archi.readlines()
+            for partes in peliculas:
+                renglones = partes.split(",")
+                if codigoPeli == renglones[0]:
+                    qArchi.writelines(renglones[0] + "," + renglones[1] + "," + renglones[2] + "," + "1" + "," + str(dni) +"\n")
+                    print("Gracias por alquilar ", nombrepeli," con nosotros")
                 else:
-                    if codigoPeli.isnumeric():
-                        break
-                    else:
-                        print ("El código de barras debe ser una combinación de números")
-
-                #Si alquila una pelicula, se la tiene que asignar a un cliente
-                #ingreso DNI de cliente
-                def ingresoDNI():   
-                    valido=True
-                    while valido:
-                        entrada=input("\n++++++++++++++++++++++++++\nIngrese el DNI del cliente: ")
-                        print("++++++++++++++++++++++++++\n")
-                        try:
-                            dni= int(entrada)
-                            if dni<=0:
-                                print("El numero no puede ser 0 ni negativo, volvé a intentar")
-                            elif len(entrada)<8 or len(entrada)>8:
-                                print("El dni consta de 8 numeros")
-                            else:
-                                valido=False
-                        except ValueError:
-                            print("El dni ingresado es incorrecto, por favor vuelva a ingresarlo")
-                    
-                    print("\n")
-                    return entrada  
-                DNI=ingresoDNI()       
-                peliculas = archi.readlines()
-                for partes in peliculas:
-                    renglones = partes.split(",")
-                    if codigoPeli == renglones[0]:
-                        qArchi.writelines(renglones[0] + "," + renglones[1] + "," + renglones[2] + "," + "1" + "," + str(dni) +"\n")
-                        print("Gracias por alquilar ", nombrepeli.capitalize()," con nosotros")
-                    else:
-                        qArchi.writelines(partes)
+                    qArchi.writelines(partes)
         qArchi.close()
     archi.close()
     with open("auxiliar.txt", "r") as copia:
@@ -445,9 +471,9 @@ def alquilarpeli():
         original.close()
     copia.close()
 
-    #### Asignación de pelicula alquilada a cliente
+#### Asignación de pelicula alquilada a cliente
 
-    """def buscarPelienCliente(entrada):
+    def buscarPelienCliente(entrada):
         file1 = open("clientes.txt", "r")
         flag = 0
         index = 0
@@ -461,7 +487,9 @@ def alquilarpeli():
         file1.close() 
     
     esta=buscarPelienCliente(codigoPeli) # trae la linea entera del cli que alquiló la peli
+    print(esta)
     
+    """
     pte1=esta[:esta.find("Estado")-2] # almacena lo anterior al Estado
     NEstado= ", Estado: 1, codigo: "+codigoPeli
 
@@ -477,9 +505,6 @@ def alquilarpeli():
                 f.write(modificado)
             
         f.truncate()
-"""
-
-
 
 ##### punto 1C
 def devolverpeli():
@@ -550,7 +575,7 @@ def devolverpeli():
         f.truncate()
 	
 
-
+"""
 #### Menú
 opc = 0
 while opc != 4:
@@ -564,8 +589,8 @@ while opc != 4:
             buscarpeli()
         elif opcionpelicula == 1:
             #esto tendría que estar dentro de la función de alquiler
-            #nombrepeli = input("¿Qué película quiere alquilar?: ")
-            #dni = int(input("¿Cual es su dni?: "))
+            nombrepeli = input("¿Qué película quiere alquilar?: ")
+           
             alquilarpeli()
         elif opcionpelicula == 2:
             devolverpeli()

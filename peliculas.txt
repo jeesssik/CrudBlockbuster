@@ -3,8 +3,8 @@
 838493,el gato con botas,infantil,0
 342342,Gran Torino,drama,0
 23423,mi pobre angelito,infantil,0
-009988,Garfield y sus amigos y amigas,infantil,0
-239423042,heidi,infantil,0
-23423423423,virgen a los 40,pelotudas,0
-23492342342,insurgente,aventura,0
-234234,Lalaland,romantica,0
+009988,Garfield y sus amigos y amigas,infantil,1,99999999
+2397423042,heidi,infantil,0
+2347235423423,virgen a los 40,pelotudas,0
+234923482342,insurgente,aventura,0
+234234,lalaland,romantica,1,11111111
