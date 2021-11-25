@@ -32,7 +32,7 @@ def gestionclientes():
                 print("\n")
                 return entrada
     #############
-    ############ funcion para revisar si en di estab en la bd, devuelve la linea de info si está
+    ############ funcion para revisar si en dni estab en la bd, devuelve la linea de info si está
         def buscarDNI(entrada):
             # opening a text file
             file1 = open("clientes.txt", "r")

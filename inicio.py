@@ -9,9 +9,9 @@ def prestamopelicula():
 
 
 def gestionclientes():
-
+    
     def menuCliente():
-        print("\n\n-----------------------------------\n")
+        print("\n ------- Gestión de Clientes ------- \n")
         choice= input ("Desea: \n A - Dar de alta un cliente \n B - Modificar teléfono o dirección del cliente \n C - Eliminar cliente\n D - Consultar estado de cliente \n X - Volver al menú anterior\n Selección: ").upper()
 
         while choice!="A" and choice!="B" and choice!="C" and choice!="D" and choice!="X":
@@ -217,6 +217,152 @@ def gestionpelicula():
     print("\n ------- Gestión de Películas ------- \n")
     print("\n0-Alta de película \n1- Consultar una pelicula \n2- Modificar libro \n3- eliminar libro")
 
+
+    def altaPelicula():
+            with open("peliculas.txt", "r+") as archi:
+                contenido = archi.readlines()
+                while True:
+                    try:
+                        codigoPel = input("Ingrese el código de barra de la película que desea dar de alta")
+                    except ValueError:
+                        print("El código de barras debe ser una combinación de números")
+                    else:
+                        if codigoPel.isnumeric():
+                            break
+                        else:
+                            print ("El código de barras debe ser una combinación de números")
+                existe = 0
+                for parte in contenido:
+                    renglon = parte.split(",")
+                    if codigoPel == renglon[0]:
+                        existe = 1
+                if existe == 1:
+                    print("Ya existe una película con ese código")
+                else:
+                    nombrePel = input("Ingrese el nombre de la película")
+                    generoPel = input("Ingrese el género")
+                    print("Verifique los datos ingresados. Código:", codigoPel, "Nombre:", nombrePel, "Género:", generoPel)
+                    seguro = input("Si está seguro escriba S, de lo contrario presione otra tecla")
+                    seguro = seguro.lower()
+                    if seguro == "s":
+                        archi.write(codigoPel + "," + nombrePel + "," + generoPel + "," + "0" + "\n")
+                        print ("Se ha dado de alta la película")
+                    else:
+                        print("Se ha cancelado la operación")
+                        
+                        
+    def consultarPelicula():
+        with open("peliculas.txt", "r") as rArchi:
+            while True:
+                try:
+                    codigoPelicula = input("Ingrese el código de la película que desea consultar")
+                except ValueError:
+                    print("El código de barras debe ser una combinación de números")
+                else:
+                    if codigoPelicula.isnumeric():
+                        break
+                    else:
+                        print ("El código de barras debe ser una combinación de números")
+            contenido = rArchi.readlines()
+            encontrado = 0
+            for linea in contenido:
+                renglon = linea.split(",")
+                if renglon[0] == codigoPelicula:
+                    encontrado = 1
+                    if len(renglon) == 4:
+                        print("Codigo de película:", renglon[0], "\ Nombre:", renglon[1], "\ Género:", renglon[2], "\ No se encuentra alquilada")
+                    else:
+                        print("Codigo de película:", renglon[0], "\ Nombre:", renglon[1], "\ Género:", renglon[2], "\ En alguiler", "\ Dni:", renglon[4])
+                else:
+                    continue
+            if encontrado == 0:
+                print("No existe una película con ese código")
+
+        
+
+    def modificarPelicula():
+        with open("peliculas.txt", "r+") as archi:
+            with open("auxiliar.txt", "w") as aArchi:
+                while True:
+                    try:
+                        codigoPeli = input("Ingrese el código de la película que desea modificar:")
+                    except ValueError:
+                        print("El código de barras debe ser una combinación de números")
+                    else:
+                        if codigoPeli.isnumeric():
+                            break
+                        else:
+                            print ("El código de barras debe ser una combinación de números")
+                peliculas = archi.readlines()
+                encontrada = 0
+                for partes in peliculas:
+                    renglones = partes.split(",")
+                    if renglones[0] == codigoPeli:
+                        print("Ingrese los siguientes datos como quiere guardarlos")
+                        while True:
+                            try:
+                                nuevoCod = input("Ingrese el código de la película que desea modificar:")
+                            except ValueError:
+                                print("El código de barras debe ser una combinación de números")
+                            else:
+                                if nuevoCod.isnumeric():
+                                    break
+                                else:
+                                    print ("El código de barras debe ser una combinación de números")
+                        nuevoNom = input("Ingrese el nombre de la película:")
+                        nuevoGen = input("Ingrese el género de la pelícyla:") #agregar para que pida si esta prestada esos datos
+                        aArchi.writelines(nuevoCod + "," + nuevoNom + "," + nuevoGen + "," + "0" + "\n")
+                        encontrada = 1
+                    else:
+                        aArchi.writelines(partes)
+                if encontrada == 1:
+                    print ("La película ha sido modificada")
+                else:
+                    print("No se ha encontrado una película con ese código")
+                aArchi.close()
+            archi.close()
+        with open("auxiliar.txt", "r") as copia:
+            with open("peliculas.txt", "w") as original:
+                for registro in copia:
+                    original.write(registro)
+
+
+    def eliminarPelicula():
+        with open("peliculas.txt", "r+") as archi:
+            with open("auxiliar.txt", "w") as aArchi:
+                while True:
+                    try:
+                        codigoPeli = input("Ingrese el codigo de la pelicula que desea eliminar")
+                    except ValueError:
+                        print("El código de barras debe ser una combinación de números")
+                    else:
+                        if codigoPeli.isnumeric():
+                            break
+                        else:
+                            print ("El código de barras debe ser una combinación de números")
+                peliculas = archi.readlines()
+                encontrada = 0
+                for partes in peliculas:
+                    renglones = partes.split(",")
+                    if renglones[0] != codigoPeli:
+                        aArchi.writelines(partes)
+                    else:
+                        encontrada = 1
+                aArchi.close()
+            archi.close()
+        with open("auxiliar.txt", "r") as copia:
+            with open("peliculas.txt", "w") as original:
+                for registro in copia:
+                    original.write(registro)
+                original.close()
+            copia.close()
+        if encontrada == 1:
+            print("La película ha sido eliminada")
+        else:
+            print("No pudimos encontrar el código ingresado")
+
+
+
 ######punto 0 Falta diferenciar los prestados de los disponibles
 def mostrarpeli():
   with open("peliculas.txt","r") as jArchi:
@@ -248,67 +394,161 @@ def buscarpeli():
 
 ##### punto 1B
 def alquilarpeli():
-	with open("peliculas.txt", "r+") as archi:
-		with open("auxiliar.txt", "w") as qArchi:
-			while True:
-				try:
-					codigoPeli = input("Ingrese el codigo de la pelicula que desea alquilar: ")
-				except ValueError:
-					print("El código de barras debe ser una combinación de números")
-				else:
-					if codigoPeli.isnumeric():
-						break
-					else:
-						print ("El código de barras debe ser una combinación de números")
-			peliculas = archi.readlines()
-			for partes in peliculas:
-				renglones = partes.split(",")
-				if codigoPeli == renglones[0]:
-					qArchi.writelines(renglones[0] + "," + renglones[1] + "," + renglones[2] + "," + "1" + "," + str(dni) +"\n")
-					print("Gracias por alquilar ", nombrepeli,"con nosotros")
-				else:
-					qArchi.writelines(partes)
-		qArchi.close()
-	archi.close()
-	with open("auxiliar.txt", "r") as copia:
-		with open("peliculas.txt", "w") as original:
-			for registro in copia:
-				original.write(registro)
-		original.close()
-	copia.close()
+    with open("peliculas.txt", "r+") as archi:
+        with open("auxiliar.txt", "w") as qArchi:
+            while True:
+                try:
+                    codigoPeli = input("Ingrese el codigo de la pelicula que desea alquilar: ")
+                except ValueError:
+                    print("El código de barras debe ser una combinación de números")
+                else:
+                    if codigoPeli.isnumeric():
+                        break
+                    else:
+                        print ("El código de barras debe ser una combinación de números")
+
+                #Si alquila una pelicula, se la tiene que asignar a un cliente
+                #ingreso DNI de cliente
+                def ingresoDNI():   
+                    valido=True
+                    while valido:
+                        entrada=input("\n++++++++++++++++++++++++++\nIngrese el DNI del cliente: ")
+                        print("++++++++++++++++++++++++++\n")
+                        try:
+                            dni= int(entrada)
+                            if dni<=0:
+                                print("El numero no puede ser 0 ni negativo, volvé a intentar")
+                            elif len(entrada)<8 or len(entrada)>8:
+                                print("El dni consta de 8 numeros")
+                            else:
+                                valido=False
+                        except ValueError:
+                            print("El dni ingresado es incorrecto, por favor vuelva a ingresarlo")
+                    
+                    print("\n")
+                    return entrada  
+                DNI=ingresoDNI()       
+                peliculas = archi.readlines()
+                for partes in peliculas:
+                    renglones = partes.split(",")
+                    if codigoPeli == renglones[0]:
+                        qArchi.writelines(renglones[0] + "," + renglones[1] + "," + renglones[2] + "," + "1" + "," + str(dni) +"\n")
+                        print("Gracias por alquilar ", nombrepeli.capitalize()," con nosotros")
+                    else:
+                        qArchi.writelines(partes)
+        qArchi.close()
+    archi.close()
+    with open("auxiliar.txt", "r") as copia:
+        with open("peliculas.txt", "w") as original:
+            for registro in copia:
+                original.write(registro)
+        original.close()
+    copia.close()
+
+    #### Asignación de pelicula alquilada a cliente
+
+    """def buscarPelienCliente(entrada):
+        file1 = open("clientes.txt", "r")
+        flag = 0
+        index = 0
+        for line in file1:  
+            index += 1 
+            if entrada in line:
+                flag = 1
+                texto=line
+                break  
+                return texto  
+        file1.close() 
+    
+    esta=buscarPelienCliente(codigoPeli) # trae la linea entera del cli que alquiló la peli
+    
+    pte1=esta[:esta.find("Estado")-2] # almacena lo anterior al Estado
+    NEstado= ", Estado: 1, codigo: "+codigoPeli
+
+    modificado=pte1+NEstado
+    #hace una lista de todas las lineas del archivo, y reescribe el archivo salteando la linea ignorada
+    with open("clientes.txt", "r+") as f:
+        d = f.readlines()
+        f.seek(0)
+        for i in d:
+            if i != esta: #ignora la linea modificada
+                f.write(i)
+            if i == esta: #donde está la linea modif, agrega la linea nueva
+                f.write(modificado)
+            
+        f.truncate()
+"""
+
 
 
 ##### punto 1C
 def devolverpeli():
-	with open("peliculas.txt", "r+") as archi:
-		with open("auxiliar.txt", "w") as aArchi:
-			while True:
-				try:
-					codigoPeli = input("Ingrese el codigo de la pelicula que desea devolver: ")
-				except ValueError:
-					print("El código de barras debe ser una combinación de números")
-				else:
-					if codigoPeli.isnumeric():
-						break
-					else:
-						print ("El código de barras debe ser una combinación de números")
-			peliculas = archi.readlines()
-			for partes in peliculas:
-				renglones = partes.split(",")
-				if codigoPeli == renglones[0]:
-					aArchi.writelines(renglones[0] + "," + renglones[1] + "," + renglones[2] + "," + "0" +"\n")
-					print("Gracias por devolver la película")
-				else:
-					aArchi.writelines(partes)
-		aArchi.close()
-	archi.close()
-	with open("auxiliar.txt", "r") as copia:
-		with open("peliculas.txt", "w") as original:
-			for registro in copia:
-				original.write(registro)
-		original.close()
-	copia.close()
-	#Aca mismo
+
+    
+
+    with open("peliculas.txt", "r+") as archi:
+        with open("auxiliar.txt", "w") as aArchi:
+            while True:
+                try:
+                    codigoPeli = input("Ingrese el codigo de la pelicula que desea devolver: ")
+                except ValueError:
+                    print("El código de barras debe ser una combinación de números")
+                else:
+                    if codigoPeli.isnumeric():
+                        break
+                    else:
+                        print ("El código de barras debe ser una combinación de números")
+            peliculas = archi.readlines()
+            for partes in peliculas: 
+                renglones = partes.split(",")
+                if codigoPeli == renglones[0]:
+                        aArchi.writelines(renglones[0] + "," + renglones[1] + "," + renglones[2] + "," + "0" +"\n")
+                        print("Gracias por devolver la película")
+                else:
+                        aArchi.writelines(partes)
+        aArchi.close()
+    archi.close()
+    with open("auxiliar.txt", "r") as copia:
+            with open("peliculas.txt", "w") as original:
+                for registro in copia:
+                    original.write(registro)
+            original.close()
+    copia.close()
+ 
+  ##Modificación de alquiler en cliente
+        #Busca el codigo de la pelicula en el txt de clientes y devuelve la linea entera de datos
+   
+
+    def buscarPelienCliente(entrada):
+        file1 = open("clientes.txt", "r")
+        flag = 0
+        index = 0
+        for line in file1:  
+            index += 1 
+            if entrada in line:
+                flag = 1
+                texto=line
+                break  
+        return texto  
+        file1.close() 
+    esta=buscarPelienCliente(codigoPeli) # trae la linea entera del cli que alquiló la peli
+
+    pte1=esta[:esta.find("Estado")-2] # almacena lo anterior al Estado
+    NEstado= ", Estado: 0, codigo: 0"
+
+    modificado=pte1+NEstado
+    #hace una lista de todas las lineas del archivo, y reescribe el archivo salteando la linea ignorada
+    with open("clientes.txt", "r+") as f:
+        d = f.readlines()
+        f.seek(0)
+        for i in d:
+            if i != esta: #ignora la linea modificada
+                f.write(i)
+            if i == esta: #donde está la linea modif, agrega la linea nueva
+                f.write(modificado)
+            
+        f.truncate()
+	
 
 
 #### Menú
@@ -323,8 +563,9 @@ while opc != 4:
             nombrepeli = input("Ingrese el nombre de la película: ")
             buscarpeli()
         elif opcionpelicula == 1:
-            nombrepeli = input("¿Qué película quiere alquilar?: ")
-            dni = int(input("¿Cual es su dni?: "))
+            #esto tendría que estar dentro de la función de alquiler
+            #nombrepeli = input("¿Qué película quiere alquilar?: ")
+            #dni = int(input("¿Cual es su dni?: "))
             alquilarpeli()
         elif opcionpelicula == 2:
             devolverpeli()
