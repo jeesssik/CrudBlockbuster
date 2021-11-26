@@ -1,11 +1,11 @@
 def muestromenu ():
   print("\n\n**********************************************************\n")
-  print("0- Gestión de alquiler de películas \n1- Gestión de clientes\n2- Gestión de Películas")
+  print("0- Gestión de alquiler de películas \n1- Gestión de clientes\n2- Gestión de Películas\n4- Salir")
 
 
 def prestamopelicula():
   print("\n ------- Gestión de Préstamo de Películas ------- \n")
-  print("\nDesea:\n0- Buscar peliculas \n1- Alquilar una película \n2- Devolver una película\n" )
+  print("\nDesea:\n0- Buscar peliculas \n1- Alquilar una película \n2- Devolver una película\n3- Salir" )
 
 
 def gestionclientes():
@@ -366,10 +366,13 @@ def gestionpelicula():
                 print("La película ha sido eliminada")
             else:
                 print("No pudimos encontrar el código ingresado")
+        eliminarPelicula()
     if choice=="X":
         muestromenu()
 
-    eliminarPelicula()
+    
+
+
 ######punto 0 Falta diferenciar los prestados de los disponibles
 def mostrarpeli():
   with open("peliculas.txt","r") as jArchi:
@@ -593,21 +596,42 @@ def devolverpeli():
 	
 
 #### Menú
-opc = 0
-while opc != 4:
-    muestromenu()
-    opcion = int(input("\nElija una opción: "))
-    if opcion == 0:
-        prestamopelicula()
-        opcionpelicula = int(input("Elija una opción: "))
-        if opcionpelicula == 0:
-            nombrepeli = input("Ingrese el nombre de la película: ").lower()
-            buscarpeli(nombrepeli)
-        elif opcionpelicula == 1:
-            alquilarpeli()
-        elif opcionpelicula == 2:
-            devolverpeli()
-    if opcion==1:
-        gestionclientes()
-    if opcion==2:
-        gestionpelicula()
+opcion = 0
+while opcion != 4:
+	muestromenu()
+	while True:
+		try:
+			opcion = int(input("\nElija una opción: "))
+		except ValueError:
+			print("Debe ingresar una opción válida")
+		else:
+			if opcion != 0 and opcion != 1 and opcion != 2 and opcion != 4:
+				print("Debe ingresar una opción válida")
+			else:
+				break
+	if opcion == 0:
+		prestamopelicula()
+		while True:
+			try:
+				opcionpelicula = int(input("Elija una opción: "))
+			except ValueError:
+				print ("Debe ingresar una opción válida")
+			else:
+				if opcionpelicula != 0 and opcionpelicula != 2 and opcionpelicula != 2 and opcionpelicula != 3:
+					print("Debe ingresar una opción válida")
+				else:
+					break
+		if opcionpelicula == 0:
+			nombrepeli = input("Ingrese el nombre de la película: ").lower()
+			buscarpeli(nombrepeli)
+		elif opcionpelicula == 1:
+			alquilarpeli()
+		elif opcionpelicula == 2:
+			devolverpeli()
+		elif opcionpelicula == 3:
+			continue
+       
+	if opcion==1:
+		gestionclientes()
+	if opcion==2:
+		gestionpelicula()
