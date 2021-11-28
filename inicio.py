@@ -231,7 +231,7 @@ def gestionpelicula():
                     try:
                         codigoPel = input("Ingrese el código de barra de la película que desea dar de alta: ")
                     except ValueError:
-                        print("El código de barras debe ser una combinación de números")
+                        print("\n*** El código de barras debe ser una combinación de números ***")
                     else:
                         if codigoPel.isnumeric():
                             break
@@ -243,16 +243,16 @@ def gestionpelicula():
                     if codigoPel == renglon[0]:
                         existe = 1
                 if existe == 1:
-                    print("Ya existe una película con ese código")
+                    print("\n***  Ya existe una película con ese código  ***\n")
                 else:
                     nombrePel = input("Ingrese el nombre de la película: ")
                     generoPel = input("Ingrese el género: ")
-                    print("Verifique los datos ingresados. Código:", codigoPel, "Nombre:", nombrePel, "Género:", generoPel)
-                    seguro = input("Si está seguro escriba S, de lo contrario presione otra tecla: ").lower()
+                    print("Verifique los datos ingresados >> Código:", codigoPel, "Nombre:", nombrePel, "Género:", generoPel)
+                    seguro = input("Si está seguro presione S, de lo contrario presione otra tecla: ").lower()
                     
                     if seguro == "s":
                         archi.write(codigoPel + "," + nombrePel + "," + generoPel + "," + "0" + "\n")
-                        print ("Se ha dado de alta la película")
+                        print ("\n ---Se ha dado de alta la película---")
                     else:
                         print("Se ha cancelado la operación")
         altaPelicula()               
@@ -282,7 +282,7 @@ def gestionpelicula():
                     else:
                         continue
                 if encontrado == 0:
-                    print("No existe una película con ese código")
+                    print("\n--- No existe una película con ese código ---")
 
         consultarPelicula()
     if choice=="C":
@@ -363,9 +363,9 @@ def gestionpelicula():
                     original.close()
                 copia.close()
             if encontrada == 1:
-                print("La película ha sido eliminada")
+                print("\n----La película ha sido eliminada----")
             else:
-                print("No pudimos encontrar el código ingresado")
+                print("\n--- No pudimos encontrar el código ingresado ---")
         eliminarPelicula()
     if choice=="X":
         muestromenu()
@@ -615,10 +615,10 @@ while opcion != 4:
 			try:
 				opcionpelicula = int(input("Elija una opción: "))
 			except ValueError:
-				print ("Debe ingresar una opción válida")
+				print ("\nDebe ingresar una opción válida")
 			else:
 				if opcionpelicula != 0 and opcionpelicula != 2 and opcionpelicula != 2 and opcionpelicula != 3:
-					print("Debe ingresar una opción válida")
+					print("\nDebe ingresar una opción válida")
 				else:
 					break
 		if opcionpelicula == 0:

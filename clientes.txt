@@ -1,4 +1,4 @@
 DNI: 32456565, Nombre Completo: Jesica Rodriguez, Telefono: 45676543, Direccion: Pampa 3221, Estado: 0, codigo: 0
 DNI: 22222222, Nombre Completo: Belen Pere Telefono: 1520123456, Direccion: Calle Falsa 123, Estado: 1, codigo: 1234
-DNI: 11111111, Nombre Completo: jacinta Perez, Telefono: 25654345, Direccion: Pedro Moran 2231, Estado: 1, codigo: 234234
+DNI: 11111111, Nombre Completo: jacinta Perez, Telefono: 25654345, Direccion: Pedro Moran 2231, Estado: 0, codigo: 0
 DNI: 99999999, Nombre Completo: Ruben Perez, Telefono: 95654345, Direccion: Pedro Moran 2231, Estado: 0, codigo: 0
