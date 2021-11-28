@@ -82,7 +82,7 @@ def gestionclientes():
                             if ele=="X":
                                 menuCliente()
                             elif ele=="A":
-                                ingresoDNI()
+                                entrada=ingresoDNI()
                         
                             
                 if esta==-1:
@@ -92,8 +92,9 @@ def gestionclientes():
                         tel=input("Ingrese el telefono de contacto: ")
                         dir=input("Ingrese la dirección: ")
 
-                        f.write("DNI: "+entrada+ ", Nombre Completo:"+nom +", Telefono:"+ tel + ", Direccion: "+dir + ", Estado:  0, codPelicula:0\n")
-
+                        f.write("DNI: "+entrada+ ", Nombre Completo:"+nom +", Telefono:"+ tel + ", Direccion: "+dir + ", Estado: 0, codPelicula:0\n")
+                        print("\n --- Usuario dado de alta con éxito ---")
+        
         #modificacion tel/dir cliente
         if choice=="B":
             dni= ingresoDNI()
@@ -131,7 +132,7 @@ def gestionclientes():
                         
                     f.truncate()
 
-                print("\n\*** ¡Telefono modificado con éxito! *** \n")
+                print("\n*** ¡Telefono modificado con éxito! *** \n")
 
                 ###modificacion de direccion####
 
@@ -160,7 +161,7 @@ def gestionclientes():
                         
                     f.truncate()
 
-                print("\n\*** ¡Direccion modificada con éxito! *** \n")
+                print("\n*** ¡Direccion modificada con éxito! *** \n")
     
 
         ##eliminar cliente
@@ -174,7 +175,7 @@ def gestionclientes():
             while elegir!="S" and elegir!="N" and elegir!="C":
                     print("\n\n------------------------\nPor favor, ingrese una de las opciones especificadas\n------------------------\n\n")
                     elegir= input ("Desea: \n S - Sí\nN - No\nC - Cancelar\n").upper()
-
+                    
 
                 #si elige S elimina
             if elegir=="S":
@@ -186,6 +187,7 @@ def gestionclientes():
                             if i != esta:
                                 f.write(i)
                         f.truncate()
+                        print("\n--- Cliente eliminado con éxito ---")
 
             if elegir=="N":
                     print("\nNo se ha modificado al cliente con DNI: " +dni+"\n")
@@ -196,6 +198,7 @@ def gestionclientes():
 
             # estado del cliente
         
+        #estado cliente
         if choice=="D":  
             dni= ingresoDNI()
             esta=buscarDNI(dni) #esta trae la linea entera a borrar
@@ -204,7 +207,7 @@ def gestionclientes():
             if "Estado: 0" in esta:
                 print("El cliente "+ dni+" no tiene deudas")
             else:
-                print("El cliente "+ dni+" debe la película con el : "+ esta[esta.find("codigo"):]+"\n\n")  ##OJO ACA, ASUMO QUE EL CODIGO TIENE 4 CARACTERES
+                print("El cliente "+ dni+" debe la película con el : "+ esta[esta.find("codigo"):]+"\n\n")  
         
         if choice=="X":
             muestromenu ()

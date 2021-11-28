@@ -60,33 +60,19 @@ def gestionclientes():
         #alta cliente
         if choice=="A":
             
-                entrada=ingresoDNI()
-                        #chequear si dni está en la bd    32456534
-                with open("clientes.txt") as C:
-                    esta=-1
-                    for line in C:
-                        esta=line.find("DNI: "+entrada)
-                        if esta>=0:
-                            print("\nEl dni "+entrada+ " ya se encuentra registrado\n")
-                            ele= input("A - Volver a ingresar el DNI de un nuevo cliente\nX - Volver al menú anterior: ").upper()
-                            while ele!="A" and ele!="X":
-                                print("Por favor ingrese una de las dos opciones correctas")
-                                ele= input("A - Volver a ingresar el DNI de un nuevo cliente\nX - Volver al menú anterior\n").upper()
-                            
-                            if ele=="X":
-                                menuCliente()
-                            elif ele=="A":
-                                ingresoDNI()
-                        
-                            
-                if esta==-1:
-                ##aca se da el ingreso al usuario
-                    with open("clientes.txt","a") as f:
-                        nom=input("Ingrese el nombre completo: ")
-                        tel=input("Ingrese el telefono de contacto: ")
-                        dir=input("Ingrese la dirección: ")
+            documento = ingresoDNI()
+            datosUser=buscarDNI(documento)
+            if len(datosUser)>0:
+                entrada=documento
+                                    
 
-                        f.write("DNI: "+entrada+ ", Nombre Completo:"+nom +", Telefono:"+ tel + ", Direccion: "+dir + ", Estado:  0, codPelicula:0\n")
+            ##aca se da el ingreso al usuario
+                with open("clientes.txt","a") as f:
+                    nom=input("Ingrese el nombre completo: ")
+                    tel=input("Ingrese el telefono de contacto: ")
+                    dir=input("Ingrese la dirección: ")
+
+                    f.write("DNI: "+entrada+ ", Nombre Completo:"+nom +", Telefono:"+ tel + ", Direccion: "+dir + ", Estado:  0, codPelicula:0\n")
 
         #modificacion tel/dir cliente
         if choice=="B":
