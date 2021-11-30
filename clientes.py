@@ -148,38 +148,44 @@ def gestionclientes():
             dni= ingresoDNI()
             print(dni)
             esta=buscarDNI(dni) #esta trae la linea entera a borrar
-        
+
+            #************ validación de estado de clientes antes de eliminación
+            if "Estado: 1" in esta:
+                print("\n***** El cliente seleccionado no puede ser eliminado porque debe un alquiler ***** ")
+            else:
+            #**************
                                                 
-            elegir=input("Quiere borrar a este cliente?\nS - Sí\nN - No\nC - Cancelar\n").upper() 
-            while elegir!="S" and elegir!="N" and elegir!="C":
-                    print("\n\n------------------------\nPor favor, ingrese una de las opciones especificadas\n------------------------\n\n")
-                    elegir= input ("Desea: \n S - Sí\nN - No\nC - Cancelar\n").upper()
+                elegir=input("Quiere borrar a este cliente?\nS - Sí\nN - No\nC - Cancelar\n").upper() 
+                while elegir!="S" and elegir!="N" and elegir!="C":
+                        print("\n\n------------------------\nPor favor, ingrese una de las opciones especificadas\n------------------------\n\n")
+                        elegir= input ("Desea: \n S - Sí\nN - No\nC - Cancelar\n").upper()
 
 
-                #si elige S elimina
-            if elegir=="S":
-                #hace una lista de todas las lineas del archivo, y reescribe el archivo salteando la linea ignorada
-                    with open("clientes.txt", "r+") as f:
-                        d = f.readlines()
-                        f.seek(0)
-                        for i in d:
-                            if i != esta:
-                                f.write(i)
-                        f.truncate()
+                    #si elige S elimina
+                if elegir=="S":
+                    #hace una lista de todas las lineas del archivo, y reescribe el archivo salteando la linea ignorada
+                        with open("clientes.txt", "r+") as f:
+                            d = f.readlines()
+                            f.seek(0)
+                            for i in d:
+                                if i != esta:
+                                    f.write(i)
+                            f.truncate()
 
-            if elegir=="N":
-                    print("\nNo se ha modificado al cliente con DNI: " +dni+"\n")
+                if elegir=="N":
+                        print("\nNo se ha modificado al cliente con DNI: " +dni+"\n")
+                        menuCliente()
+
+                if elegir=="C":
                     menuCliente()
-
-            if elegir=="C":
-                menuCliente()
-
+            menuCliente()
             # estado del cliente
         
         if choice=="D":  
             dni= ingresoDNI()
             esta=buscarDNI(dni) #esta trae la linea entera a borrar
-            #print(esta)
+            
+            
 
             if "Estado: 0" in esta:
                 print("El cliente "+ dni+" no tiene deudas")
@@ -188,3 +194,5 @@ def gestionclientes():
         
         menuCliente()
     menuCliente()
+
+gestionclientes()
