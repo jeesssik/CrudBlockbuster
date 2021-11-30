@@ -1,6 +1,6 @@
 def muestromenu ():
   print("\n\n**********************************************************\n")
-  print("0- Gestión de alquiler de películas \n1- Gestión de clientes\n2- Gestión de Películas\n4- Salir")
+  print("0- Gestión de alquiler de películas \n1- Gestión de clientes\n2- Gestión de Películas\n3- Mostrar peliculas disponibles para alquiler\n4- Salir")
 
 
 def prestamopelicula():
@@ -382,13 +382,16 @@ def gestionpelicula():
     
 
 
-######punto 0 Falta diferenciar los prestados de los disponibles
+######punto 0 
 def mostrarpeli():
   with open("peliculas.txt","r") as jArchi:
         linea = jArchi.readline()
+        print("Lista de películas disponibles: ")
         while linea != "":
           renglon = linea.split(',')
-          return renglon
+          codigoPeli = renglon[0]
+          if comprobarDisponible(codigoPeli):
+            print("Codigo de película:", renglon[0], "\ Nombre:", renglon[1], "\ Género:", renglon[2])
           linea = jArchi.readline()
         jArchi.close()
 
@@ -634,7 +637,7 @@ while opcion != 4:
         except ValueError:
             print("Debe ingresar una opción válida")
         else:
-            if opcion != 0 and opcion != 1 and opcion != 2 and opcion != 4:
+            if opcion != 0 and opcion != 1 and opcion != 2 and opcion != 3 and opcion != 4:
                 print("Debe ingresar una opción válida")
             else:
                 break
@@ -680,3 +683,5 @@ while opcion != 4:
         gestionclientes()
     if opcion==2:
         gestionpelicula()
+    if opcion==3:
+         mostrarpeli()
